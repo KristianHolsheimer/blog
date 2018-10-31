@@ -1,0 +1,11 @@
+<h1>Posts with tag &quot;{{ tag.name }}&quot;</h1>
+
+{% if tag.posts %}
+    <ul>
+    {% for post in tag.posts %}
+        <li><a href="{% url 'post' post.name %}">{{ post.title }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No posts are available.</p>
+{% endif %}

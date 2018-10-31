@@ -1,0 +1,44 @@
+{# ------------------------------------------------------------------------- #}
+{# This is the entry point to the blog:                                      #}
+{# - it lists blog posts                                                     #}
+{# - it lists topic tags                                                     #}
+{#                                                                           #}
+{# Required context:                                                         #}
+{# - posts: queryset of Post objects                                         #}
+{# - tags: queryset of Tag objects                                           #}
+{# ------------------------------------------------------------------------- #}
+
+
+{% extends "posts/base_site.html" %}
+
+
+{% block center_pane %}
+
+  <h1>Posts</h1>
+
+  {% if posts %}
+    <ul>
+    {% for post in posts %}
+      <li><a href="{% url "post" post.name %}">{{ post.title }}</a></li>
+    {% endfor %}
+    </ul>
+  {% else %}
+    <p>No posts are available.</p>
+  {% endif %}
+
+  [<a href="{% url "new" %}">create new post</a>]
+
+
+  <h1>Tags</h1>
+
+  {% if tags %}
+    <ul>
+    {% for tag in tags %}
+      <li><a href="{% url "tag" tag.name %}">{{ tag.name }}</a></li>
+    {% endfor %}
+    </ul>
+  {% else %}
+    <p>No tags are available.</p>
+  {% endif %}
+
+{% endblock %}

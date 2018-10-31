@@ -1,0 +1,16 @@
+secret_key.txt*
+db.sqlite3
+media/*
+sandbox/*
+*.backup
+
+# python
+__pycache__
+*.py[cod]
+
+# jupyter
+*.ipynb
+.ipynb_checkpoints/
+
+# sublime
+*.sublime-*

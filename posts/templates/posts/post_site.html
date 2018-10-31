@@ -1,0 +1,44 @@
+{# ------------------------------------------------------------------------- #}
+{# This is the main blog post page:                                          #}
+{# - adds post-specific meta data                                            #}
+{# - adds a "edit this post" link                                            #}
+{# - loads blog post content                                                 #}
+{#                                                                           #}
+{# Required context:                                                         #}
+{# - post: Post object                                                       #}
+{# - user: (provided by default)                                             #}
+{# ------------------------------------------------------------------------- #}
+
+
+{% extends "posts/base_site.html" %}
+
+
+{% block head %}
+
+  <meta name="description" content="{{ post.title }}">
+  {% if post.id and post.tags.count %}
+    <meta name="keywords" content="{% for tag in post.tags.all %}{{ tag }},{% endfor %}">
+  {% endif %}
+
+{% endblock %}
+
+
+{% block before_center_pane %}
+
+  {% if user.is_staff and post.id %}
+
+    <div id="admin_link_edit_post">
+      [<a href="{% url "edit" post.name %}">edit this post</a>]
+    </div>
+
+  {% endif %}
+
+{% endblock %}
+
+
+{% block center_pane %}
+
+  {% include "posts/this_blog.html" %}
+  {% include "posts/post.html" %}
+
+{% endblock %}

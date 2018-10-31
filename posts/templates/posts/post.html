@@ -1,0 +1,19 @@
+{# ------------------------------------------------------------------------- #}
+{# This template renders blog post content.                                  #}
+{#                                                                           #}
+{# Required context:                                                         #}
+{# - post: Post object                                                       #}
+{# ------------------------------------------------------------------------- #}
+
+
+<div class="post">
+
+  {% include "posts/mathjax.html" %}
+
+  <h1>{{ post.title }}</h1>
+
+  {% include "posts/tags_list.html" %}
+
+  {{ post.html }}
+
+</div>

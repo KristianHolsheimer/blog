@@ -1,0 +1,50 @@
+
+<form id="post_edit_form" action="{% if post %}{% url "edit" post.name %}{% else %}{% url "new" %}{% endif %}" method="post">
+  {% csrf_token %}
+
+{% for error in form.non_field_errors %}
+  <div class="alert alert-danger">
+    <strong>{{ error|escape }}</strong>
+  </div>
+{% endfor %}
+
+<div class="post_edit" id="tags">
+  <label for="id_tags">Tags:</label>
+  {% for error in form.tags.errors %}
+    <span class="alert alert-danger">
+      <strong>{{ error|escape }}</strong>
+    </span>
+  {% endfor %}
+  {{ form.tags }}
+</div>
+
+<div class="post_edit" id="name">
+  <label for="id_name">Name:</label><br>
+  {{ form.name }}
+</div>
+
+<div class="post_edit" id="title">
+  <label for="id_title">Title:</label><br>
+  {{ form.title }}
+</div>
+
+  <div class="post_edit" id="markdown">
+    <label for="id_markdown">Markdown:</label><br>
+    {{ form.markdown }}
+  </div>
+
+  <div class="post_edit" id="images">
+    {# TODO: implement 'add image' functionality #}
+    Available images:
+    <ul>
+    {% for image in post.images %}
+      <li>{{ image }}</li>
+    {% endfor %}
+    </ul>
+  </div>
+
+  <input type="submit" name="preview" value="Preview">
+  <input type="submit" name="save" value="Save">
+</form>
+
+

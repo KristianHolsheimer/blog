@@ -1,0 +1,51 @@
+{# ------------------------------------------------------------------------- #}
+{# This is the main parent template.                                         #}
+{# ------------------------------------------------------------------------- #}
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="en-US">
+
+
+<head>
+
+  {% load static %}
+  <link rel="icon" href="{% static "img/K_black.svg" %}">
+  <link rel="stylesheet" href="{% static "fonts/Butler_Stencil_Webfont/stylesheet.css" %}"/>
+  <link rel="stylesheet" href="{% static "posts/style.css" %}"/>
+
+  <meta charset="UTF-8">
+  <meta name="author" content="Kristian Holsheimer">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  {% block head %}
+  {% endblock %}
+
+</head>
+
+
+<body>
+
+  {% block banner %}
+  {% endblock %}
+
+
+  <div class="before_center_pane">
+
+    {% block before_center_pane %}
+    {% endblock %}
+
+  </div>
+
+
+  <div class="center_pane">
+
+    {% block center_pane %}
+    {% endblock %}
+
+  </div>
+
+</body>
+
+
+</html>

@@ -1,0 +1,9 @@
+# images
+*.svg binary
+*.png binary
+*.jpg binary
+*.ico binary
+
+# fonts
+*.woff binary
+*.woff2 binary
