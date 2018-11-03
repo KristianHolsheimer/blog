@@ -10,11 +10,66 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 import os
-from .utils import get_or_create_secret_key
+import logging
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
+from django.utils.log import DEFAULT_LOGGING
+from .utils import get_or_create_secret_key, parse_bool, git_rev_parse
+
+COMMIT_HASH = git_rev_parse('HEAD')
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+# set up logging
+sentry_sdk.init(
+    dsn="https://7eadb4018ed0481c81f4220748e6afd1@sentry.io/1315141",
+    release=COMMIT_HASH,
+    integrations=[DjangoIntegration()]
+)
+LOGGING_CONFIG = None
+logging.config.dictConfig({
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'console': {
+            # exact format is not important, this is the minimum information
+            'format': '%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
+        },
+        'json': {
+            '()': 'blog.utils.JsonFormatter',
+            'fmt': '%(asctime)s %(name)-12s %(levelname)-8s %(message)s',
+        },
+    },
+    'handlers': {
+        'console': {
+            'formatter': 'console',
+            'class': 'logging.StreamHandler',
+        },
+        'file': {
+            'level': 'INFO',
+            'formatter': 'json',
+            'class': 'logging.handlers.TimedRotatingFileHandler',
+            'filename': os.path.join(BASE_DIR, 'log', 'blog.log'),
+            'when': 'W0',
+            'backupCount': 52,
+        },
+    },
+    'loggers': {
+        # root logger
+        '': {
+            'level': 'INFO',
+            'handlers': ['console', 'file'],
+            'django.server': DEFAULT_LOGGING['loggers']['django.server'],
+        },
+        'posts': {
+            'level': 'INFO',
+            'handlers': ['console', 'file'],
+            'propagate': False,  # required to avoid double logging with root logger
+        },
+    },
+})
+logger = logging.getLogger(__name__)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
@@ -23,7 +78,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = get_or_create_secret_key(BASE_DIR)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = parse_bool(os.environ.get('DJANGO_DEBUG'))
 
 ALLOWED_HOSTS = ['localhost'] + ['192.168.0.{:d}'.format(i) for i in range(256)]
 
@@ -38,7 +93,6 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'formtools',
     'django_extensions',
 ]
 
@@ -115,6 +169,16 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+CSRF_COOKIE_SECURE = True
+
+X_FRAME_OPTIONS = 'DENY'
+
+SESSION_COOKIE_SECURE = True
+
+SECURE_BROWSER_XSS_FILTER = True
 
 
 # Static files (CSS, JavaScript, Images)

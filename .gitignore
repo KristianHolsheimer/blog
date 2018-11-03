@@ -1,5 +1,6 @@
 secret_key.txt*
 db.sqlite3
+log/*
 media/*
 sandbox/*
 *.backup
