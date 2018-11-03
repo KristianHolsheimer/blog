@@ -1,0 +1,110 @@
+label {
+  color: #333;
+}
+
+label.required {
+  font-weight: inherit;
+  color: inherit;
+}
+
+textarea#id_markdown {
+  height: 300px;
+  max-height: 300px;
+  min-height: 300px;
+}
+
+#post_preview.post {
+  all: initial;
+  font-family: serif;
+  display: block;
+  width: 640px;
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#post_preview p {
+  all: initial;
+  font-size: 1em;
+  display: block;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+}
+
+#post_preview ul {
+  all: initial;
+  display: block;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  padding-inline-start: 40px;
+}
+
+#post_preview li {
+  all: initial;
+}
+
+#post_preview h1 {
+  all: initial;
+  display: block;
+  font-size: 2em;
+  margin-block-start: 0.67em;
+  margin-block-end: 0.67em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
+}
+
+#post_preview h3 {
+  all: initial;
+  display: block;
+  font-size: 1.17em;
+  margin-block-start: 1em;
+  margin-block-end: 1em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
+}
+
+#post_preview h2 {
+  all: initial;
+  display: block;
+  font-size: 1.5em;
+  margin-block-start: 0.83em;
+  margin-block-end: 0.83em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
+}
+
+#post_preview h4 {
+  all: initial;
+  display: block;
+  margin-block-start: 1.33em;
+  margin-block-end: 1.33em;
+  margin-inline-start: 0px;
+  margin-inline-end: 0px;
+  font-weight: bold;
+}
+
+img.post_image {
+  width: 100%;
+}
+
+code {
+  display: inline-block;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-left: 12px;
+  padding-right: auto;
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-left: 0;
+  margin-right: 0;
+  color: #000;
+  background-color: #eee;
+  width: 100% !important;
+}

@@ -17,11 +17,13 @@ class PostAdmin(admin.ModelAdmin):
     readonly_fields = ('preview',)
     fieldsets = (
         (None, {'fields': ('name', 'title', 'tags', 'images', 'markdown')}),
-        ('Preview', {'classes': ('collapse',), 'fields': ('preview',)}),
+        ('Preview', {'fields': ('preview',)}),
     )
 
     def preview(self, post):
-        return mark_safe('<div class="post">' + post.html() + '</div>')
+        return mark_safe(
+            '<div class="post" id="post_preview">'
+            '<h1>' + post.title + '</h1>' + post.html() + '</div>')
 
 
 @admin.register(Image)

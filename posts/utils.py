@@ -40,24 +40,23 @@ class MarkdownRenderer:
         filepath = os.path.join(settings.MEDIA_ROOT, image_model_obj.file.name)
         return (
             '<figure id="{filename}">'
-            '<img src="{filepath}" alt="{filename}"/>'
+            '<img class="post_image" src="{filepath}" alt="{filename}"/>'
             '<figcaption>'
-            '<span class="figcaption_prefix">Figure: </span>{caption}'
+            '<span class="figcaption_prefix">Figure: </span>{{caption}}'
             '</figcaption>'
             '</figure>'
             .format(
                 filepath=filepath,
-                filename=image_model_obj.filename,
-                caption=image_model_obj.caption))
+                filename=image_model_obj.filename))
 
     def render(self, markdown):
         if self.post is not None and self.post.id is not None:
-            image_html = {img.filename: self.image_html(img) for img in self.post.images()}
-            translate = {m['full']: image_html[m['filename']] for m in RE_MARKDOWN_IMG.finditer(markdown)}
+            image_html = {img.filename: self.image_html(img) for img in self.post.images.all()}
+            translate = {m['full']: image_html.get(m['filename'], "[ IMAGE NOT FOUND ]").format(caption=m['alt']) for m in RE_MARKDOWN_IMG.finditer(markdown)}
             for orig, repl in translate.items():
                 markdown = markdown.replace(orig, repl)
         markdown = self.escape(markdown)
-        html = misaka.html(markdown, extensions=['math', 'math-explicit'], render_flags=[])
+        html = misaka.html(markdown, extensions=['math', 'math-explicit', 'fenced-code'], render_flags=[])
         html = self.escape(html, reverse=True)
         return html
 

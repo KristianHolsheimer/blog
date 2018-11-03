@@ -16,7 +16,6 @@ from sentry_sdk.integrations.django import DjangoIntegration
 from django.utils.log import DEFAULT_LOGGING
 from .utils import get_or_create_secret_key, parse_bool, git_rev_parse
 
-COMMIT_HASH = git_rev_parse('HEAD')
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -24,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # set up logging
 sentry_sdk.init(
     dsn="https://7eadb4018ed0481c81f4220748e6afd1@sentry.io/1315141",
-    release=COMMIT_HASH,
+    release=git_rev_parse('HEAD'),
     integrations=[DjangoIntegration()]
 )
 LOGGING_CONFIG = None

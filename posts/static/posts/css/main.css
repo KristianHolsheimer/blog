@@ -101,6 +101,10 @@ body {
 
 }
 
+a {
+  text-decoration: inherit; /* no underline */
+}
+
 img {
   width: 100%;
 }
@@ -116,7 +120,16 @@ div.post_edit {
   padding-bottom: 12px;
 }
 
-div.post_edit#markdown textarea#id_markdown {
-  width: 100%;
-  height: 300px;
+code {
+  display: inline-block;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-left: 12px;
+  padding-right: auto;
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-left: 0;
+  margin-right: 0;
+  background-color: #eee;
+  width: 100% !important;
 }

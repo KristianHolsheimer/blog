@@ -16,9 +16,9 @@
 {% block head %}
 
   <meta name="description" content="{{ post.title }}">
-  {% if post.id and post.tags.count %}
-    <meta name="keywords" content="{% for tag in post.tags.all %}{{ tag }},{% endfor %}">
-  {% endif %}
+  <meta name="keywords" content="{% for tag in post.tags.all %}{{ tag }},{% endfor %}">
+
+  {% include 'posts/mathjax.html' %}
 
 {% endblock %}
 
@@ -26,11 +26,9 @@
 {% block before_center_pane %}
 
   {% if user.is_staff and post.id %}
-
-    <div id="admin_link_edit_post">
-      [<a href="{% url "edit" post.name %}">edit this post</a>]
-    </div>
-
+  <div id="admin_link_edit_post">
+    [<a href="{% url 'admin:posts_post_change' post.id %}">edit this post</a>]
+  </div>
   {% endif %}
 
 {% endblock %}
@@ -39,6 +37,11 @@
 {% block center_pane %}
 
   {% include "posts/this_blog.html" %}
-  {% include "posts/post.html" %}
+
+  <div class="post">
+    <h1>{{ post.title }}</h1>
+    {% include "posts/tags_list.html" %}
+    {{ post.html }}
+  </div>
 
 {% endblock %}
