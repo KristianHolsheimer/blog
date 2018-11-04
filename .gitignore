@@ -3,6 +3,7 @@ db.sqlite3
 log/*
 media/*
 sandbox/*
+static/*
 *.backup
 
 # python
