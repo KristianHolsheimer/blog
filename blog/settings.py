@@ -20,6 +20,9 @@ from .utils import get_or_create_secret_key, parse_bool, git_rev_parse
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = parse_bool(os.environ.get('DJANGO_DEBUG'))
+
 # set up logging
 sentry_sdk.init(
     dsn="https://7eadb4018ed0481c81f4220748e6afd1@sentry.io/1315141",
@@ -49,7 +52,7 @@ logging.config.dictConfig({
             'level': 'INFO',
             'formatter': 'json',
             'class': 'logging.handlers.TimedRotatingFileHandler',
-            'filename': os.path.join(BASE_DIR, 'log', 'blog.log'),
+            'filename': os.path.join(BASE_DIR, 'log/blog.log') if DEBUG else '/var/log/blog/blog.log',  # mkdir -m 766 /var/log/blog
             'when': 'W0',
             'backupCount': 52,
         },
@@ -75,9 +78,6 @@ logger = logging.getLogger(__name__)
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = get_or_create_secret_key(BASE_DIR)
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = parse_bool(os.environ.get('DJANGO_DEBUG'))
 
 ALLOWED_HOSTS = ['localhost'] + ['192.168.0.{:d}'.format(i) for i in range(256)]
 
@@ -183,6 +183,7 @@ SECURE_BROWSER_XSS_FILTER = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 
 # uploaded content
