@@ -21,7 +21,11 @@ from .utils import get_or_create_secret_key, parse_bool, git_rev_parse
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = parse_bool(os.environ.get('DJANGO_DEBUG'))
+DEBUG = parse_bool(os.environ.get('DJANGO_DEBUG', ''))
+try:
+    LOG_DIR = os.environ['DJANGO_LOG_DIR']
+except KeyError:
+    raise EnvironmentError("Please set the environment variable: DJANGO_LOG_DIR")
 
 # set up logging
 sentry_sdk.init(
@@ -52,7 +56,7 @@ logging.config.dictConfig({
             'level': 'INFO',
             'formatter': 'json',
             'class': 'logging.handlers.TimedRotatingFileHandler',
-            'filename': os.path.join(BASE_DIR, 'log/blog.log') if DEBUG else '/var/log/blog/blog.log',  # mkdir -m 766 /var/log/blog
+            'filename': os.path.join(LOG_DIR, 'blog.log'),
             'when': 'W0',
             'backupCount': 52,
         },
