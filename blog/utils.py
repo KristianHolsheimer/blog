@@ -34,6 +34,15 @@ def parse_bool(string):
         raise BooleanParseError("Cannot parse boolean from: {}".format(string))
 
 
+def env_var(varname, raise_on_missing=True, default=None):
+    try:
+        return os.environ[varname]
+    except KeyError:
+        if raise_on_missing:
+            raise EnvironmentError("Missing environ variable: {}".format(varname))
+        return default
+
+
 def git_rev_parse(rev='HEAD', short=False):
     global COMMIT_HASH
     if COMMIT_HASH is None:
