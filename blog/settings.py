@@ -173,7 +173,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-SECURE_CONTENT_TYPE_NOSNIFF = True
+# SECURE_CONTENT_TYPE_NOSNIFF = True  # FIXME: breaks css styling
 
 CSRF_COOKIE_SECURE = True
 

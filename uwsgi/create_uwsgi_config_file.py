@@ -6,7 +6,7 @@ from argparse import ArgumentParser
 from configparser import ConfigParser
 
 from blog.utils import env_var
-from blog.settings import BASE_DIR
+from blog.settings import BASE_DIR, LOG_DIR
 
 
 PROJECT = 'blog'
@@ -15,18 +15,20 @@ PROJECT = 'blog'
 def create_uwsgi_config_file(output_filename):
     conf = ConfigParser()
 
-    settings = {
-        'home': os.path.join(env_var('WORKON_HOME'), PROJECT),
-        'chdir': os.path.join(BASE_DIR, PROJECT),
-        'module': '{}.wsgi'.format(PROJECT),
-        'master': 'true',
-        'processes': '2',
-        'socket': '/tmp/{}.sock'.format(PROJECT),
-        'chmod-socket': '664',
-        'vacuum': 'true',
-    }
+    settings = (
+        ('home', os.path.join(env_var('WORKON_HOME'), PROJECT)),
+        ('chdir', BASE_DIR),
+        ('module', '{}.wsgi'.format(PROJECT)),
+        ('master', 'true'),
+        ('processes', '2'),
+        ('socket', '/tmp/{}.sock'.format(PROJECT)),
+        ('chmod-socket', '664'),
+        ('vacuum', 'true'),
+        ('enable-threads', 'true'),
+        ('logto', os.path.join(LOG_DIR, 'uwsgi.log')),
+    )
     conf.add_section('uwsgi')
-    for k, v in settings.items():
+    for k, v in settings:
         conf.set('uwsgi', k, v)
 
     if output_filename is None:

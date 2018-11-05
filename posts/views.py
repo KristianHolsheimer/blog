@@ -4,7 +4,6 @@ from .models import Post, Tag
 
 
 def index(request):
-    raise Exception("test message")
     posts = Post.objects.order_by('-pub_date')[:5]
     tags = Tag.objects.order_by('name')
     context = {'posts': posts, 'tags': tags}
