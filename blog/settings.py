@@ -83,7 +83,12 @@ logger = logging.getLogger(__name__)
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = get_or_create_secret_key(BASE_DIR)
 
-ALLOWED_HOSTS = ['localhost'] + ['192.168.0.{:d}'.format(i) for i in range(256)]
+ALLOWED_HOSTS = [
+    'localhost',
+    'kristianholsheimer-blog.westeurope.cloudapp.azure.com'
+]
+if DEBUG:
+    ALLOWED_HOSTS.extend(['192.168.0.{:d}'.format(i) for i in range(256)])
 
 
 # Application definition
