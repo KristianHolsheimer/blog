@@ -37,7 +37,7 @@ class MarkdownRenderer:
         return text
 
     def image_html(self, image_model_obj):
-        filepath = os.path.join(settings.MEDIA_ROOT, image_model_obj.file.name)
+        filepath = os.path.join(settings.MEDIA_URL, image_model_obj.file.name)
         return (
             '<figure id="{filename}">'
             '<img class="post_image" src="{filepath}" alt="{filename}"/>'
