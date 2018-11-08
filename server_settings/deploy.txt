@@ -1,0 +1,52 @@
+# I should probably automate this at some point (maybe with cloud-init).
+
+
+sudo apt-get install -y super nginx python3-dev python3-pip
+sudo pip3 install virtualenv virtualenvwrapper uwsgi
+sudo usermod -a -G www-data $USER
+
+# add lines to ~/.bashrc
+echo "
+export DJANGO_DEBUG=false
+export DJANGO_LOG_DIR=/var/log/django
+export GIT_TREE=~/git_tree
+export WORKON_HOME=~/virtualenvs
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+source /usr/local/bin/virtualenvwrapper.sh
+" >> ~/.bashrc
+. ~/.bashrc
+
+# clone django app
+git clone https://github.com/KristianHolsheimer/blog.git $GIT_TREE/blog
+mkvirtualenv -p /usr/bin/python3 -a $GIT_TREE/blog -r $GIT_TREE/blog/requirements.txt blog
+sudo mkdir -p $DJANGO_LOG_DIR
+sudo chmod 777 $DJANGO_LOG_DIR
+
+# setup uwsgi
+sudo mkdir -p /etc/uwsgi/sites
+python3 $GIT_TREE/blog/uwsgi/create_uwsgi_config_file.py | sudo tee /etc/uwsgi/sites/blog.ini
+sudo cp $GIT_TREE/blog/uwsgi/uwsgi.service /etc/systemd/system/uwsgi.service
+sudo systemctl enable uwsgi.service
+sudo service uwsgi start
+
+# setup nginx
+sudo cp $GIT_TREE/blog/nginx/blog /etc/nginx/sites-available/blog
+sudo cp $GIT_TREE/blog/nginx/uwsgi_params /etc/nginx/sites-available/uwsgi_params
+sudo ln -s /etc/nginx/sites-available/blog /etc/nginx/sites-enabled/blog
+sudo rm -f /etc/nginx/sites-enabled/default
+sudo service nginx restart
+
+# From local/backup machine:
+scp /path/to/blog/db.sqlite3 blogserver:git_tree/blog/
+scp /path/to/blog/media blogserver:git_tree/blog/
+scp ~/.local/etc/ssl/certs/unbiasednoise.crt blogserver:/tmp
+scp ~/.local/etc/ssl/private/unbiasednoise.rsa blogserver:/tmp
+
+# install ssl certificate and private key
+sudo mv /tmp/unbiasednoise.com.crt /etc/ssl/certs/unbiasednoise.com.crt
+sudo mv /tmp/unbiasednoise.com.rsa /etc/ssl/private/unbiasednoise.com.rsa
+
+# to quickly test uwsgi:
+workon blog && ./manage.py collectstatic && deactivate
+DJANGO_DEBUG=true uwsgi --http :8080 --home $WORKON_HOME/blog --chdir $GIT_TREE/blog --module blog.wsgi
+

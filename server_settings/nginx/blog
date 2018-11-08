@@ -1,0 +1,45 @@
+server {
+    server_name www.unbiasednoise.com unbiasednoise.com;
+    return 301 https://unbiasednoise.com$request_uri;
+}
+
+server {
+    listen 443 ssl;
+    ssl_certificate /etc/ssl/certs/unbiasednoise.crt;
+    ssl_certificate_key /etc/ssl/private/unbiasednoise.rsa;
+    server_name www.unbiasednoise.com;
+    return 301 https://unbiasednoise.com$request_uri;
+}
+
+server {
+    charset utf-8;
+
+    # the port your site will be served on
+    listen 443 ssl;
+    ssl_certificate /etc/ssl/certs/unbiasednoise.crt;
+    ssl_certificate_key /etc/ssl/private/unbiasednoise.rsa;
+
+    # the domain name it will serve for
+    server_name unbiasednoise.com;
+
+    # max upload size
+    client_max_body_size 75M;
+
+    # serve static files directly
+    location /favicon.ico {
+        access_log off;
+        log_not_found off;
+    }
+    location /static {
+        alias /home/kris/git_tree/blog/static;
+    }
+    location /media {
+        alias /home/kris/git_tree/blog/media;
+    }
+
+    # dynamic content is handled by django
+    location / {
+        include uwsgi_params;
+        uwsgi_pass unix:///run/uwsgi/blog.sock;
+    }
+}

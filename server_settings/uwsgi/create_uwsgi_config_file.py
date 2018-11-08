@@ -5,8 +5,16 @@ import sys
 from argparse import ArgumentParser
 from configparser import ConfigParser
 
-from blog.utils import env_var
-from blog.settings import BASE_DIR, LOG_DIR
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from blog.utils import env_var  # noqa
+from blog.settings import BASE_DIR, LOG_DIR  # noqa
+
+
+"""
+This is a bit silly, really. I should really just use the dynamic variables
+that wsgi config files already offers.
+
+"""
 
 
 PROJECT = 'blog'
@@ -16,12 +24,14 @@ def create_uwsgi_config_file(output_filename):
     conf = ConfigParser()
 
     settings = (
+        ('uid', 'www-data'),
+        ('gid', 'www-data'),
         ('home', os.path.join(env_var('WORKON_HOME'), PROJECT)),
         ('chdir', BASE_DIR),
         ('module', '{}.wsgi'.format(PROJECT)),
         ('master', 'true'),
         ('processes', '2'),
-        ('socket', '/tmp/{}.sock'.format(PROJECT)),
+        ('socket', '/run/uwsgi/{}.sock'.format(PROJECT)),
         ('chmod-socket', '664'),
         ('vacuum', 'true'),
         ('enable-threads', 'true'),
