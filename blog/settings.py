@@ -22,10 +22,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = parse_bool(os.environ.get('DJANGO_DEBUG', ''))
-try:
-    LOG_DIR = os.environ['DJANGO_LOG_DIR']
-except KeyError:
-    raise EnvironmentError("Please set the environment variable: DJANGO_LOG_DIR")
+LOG_DIR = os.environ.get('DJANGO_LOG_DIR', '/var/log/django')
 
 # set up logging
 sentry_sdk.init(
@@ -84,11 +81,12 @@ logger = logging.getLogger(__name__)
 SECRET_KEY = get_or_create_secret_key(BASE_DIR)
 
 ALLOWED_HOSTS = [
-    'localhost',
-    'kristianholsheimer-blog.westeurope.cloudapp.azure.com'
+    'unbiasednoise.westeurope.cloudapp.azure.com',
+    'unbiasednoise.com',
 ]
 if DEBUG:
-    ALLOWED_HOSTS.extend(['192.168.0.{:d}'.format(i) for i in range(256)])
+    ALLOWED_HOSTS += ['127.0.0.1', 'localhost']
+    ALLOWED_HOSTS += ['192.168.0.{:d}'.format(i) for i in range(256)]
 
 
 # Application definition
@@ -178,7 +176,7 @@ USE_L10N = True
 
 USE_TZ = True
 
-# SECURE_CONTENT_TYPE_NOSNIFF = True  # FIXME: breaks css styling
+SECURE_CONTENT_TYPE_NOSNIFF = True
 
 CSRF_COOKIE_SECURE = True
 

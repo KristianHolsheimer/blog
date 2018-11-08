@@ -26,6 +26,7 @@ urlpatterns = [
     path('favicon.ico', RedirectView.as_view(url=os.path.join(STATIC_URL, 'img/K_black.svg'))),
 ]
 
+# in production, we'll serve '/media/' directly from nginx
 if DEBUG:
     urlpatterns.append(
         re_path('media/(?P<path>.*)', serve, {'document_root': MEDIA_ROOT}))
