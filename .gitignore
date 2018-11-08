@@ -4,6 +4,7 @@ log/*
 media/*
 sandbox/*
 static/*
+!static/fonts/
 *.backup
 
 # python
