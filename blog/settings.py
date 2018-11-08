@@ -46,11 +46,12 @@ logging.config.dictConfig({
     },
     'handlers': {
         'console': {
+            'level': 'INFO',
             'formatter': 'console',
             'class': 'logging.StreamHandler',
         },
         'file': {
-            'level': 'INFO',
+            'level': 'DEBUG',
             'formatter': 'json',
             'class': 'logging.handlers.TimedRotatingFileHandler',
             'filename': os.path.join(LOG_DIR, 'blog.log'),
@@ -61,12 +62,10 @@ logging.config.dictConfig({
     'loggers': {
         # root logger
         '': {
-            'level': 'INFO',
             'handlers': ['console', 'file'],
             'django.server': DEFAULT_LOGGING['loggers']['django.server'],
         },
         'posts': {
-            'level': 'INFO',
             'handlers': ['console', 'file'],
             'propagate': False,  # required to avoid double logging with root logger
         },
