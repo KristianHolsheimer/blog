@@ -32,4 +32,4 @@ def post(request, post_name):
 def tag(request, tag_name):
     logger.debug(dict(request))
     tag_obj = get_object_or_404(Tag, name=tag_name)
-    return render(request, 'posts/tag.html', {'tag': tag_obj})
+    return render(request, 'posts/tag_site.html', {'tag': tag_obj})
