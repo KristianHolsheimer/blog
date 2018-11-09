@@ -56,7 +56,7 @@ class MarkdownRenderer:
             for orig, repl in translate.items():
                 markdown = markdown.replace(orig, repl)
         markdown = self.escape(markdown)
-        html = misaka.html(markdown, extensions=['math', 'math-explicit', 'fenced-code'], render_flags=[])
+        html = misaka.html(markdown, extensions=['math', 'math-explicit', 'fenced-code', 'footnotes'], render_flags=[])
         html = self.escape(html, reverse=True)
         return html
 
