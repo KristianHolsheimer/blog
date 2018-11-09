@@ -20,7 +20,7 @@ class PostForm(ModelForm):
     class Media:
         css = {
             'all': [
-                'fonts/Butler_Stencil_Webfont/stylesheet.css',
+                'fonts/Butler_Webfont/stylesheet.css',
                 'posts/css/post_form.css',
             ],
         }
