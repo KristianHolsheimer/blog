@@ -18,6 +18,8 @@
   <meta name="description" content="{{ post.title }}">
   <meta name="keywords" content="{% for tag in post.tags.all %}{{ tag }},{% endfor %}">
 
+  {% include 'posts/mathjax.html' %}
+
 {% endblock %}
 
 
