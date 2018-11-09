@@ -46,12 +46,10 @@ logging.config.dictConfig({
     },
     'handlers': {
         'console': {
-            'level': 'INFO',
             'formatter': 'console',
             'class': 'logging.StreamHandler',
         },
-        'file': {
-            'level': 'DEBUG',
+        'file_ndjson': {
             'formatter': 'json',
             'class': 'logging.handlers.TimedRotatingFileHandler',
             'filename': os.path.join(LOG_DIR, 'blog.log'),
@@ -62,16 +60,17 @@ logging.config.dictConfig({
     'loggers': {
         # root logger
         '': {
-            'handlers': ['console', 'file'],
+            'level': 'INFO',
             'django.server': DEFAULT_LOGGING['loggers']['django.server'],
         },
-        'posts': {
-            'handlers': ['console', 'file'],
-            'propagate': False,  # required to avoid double logging with root logger
+        'posts.views': {
+            'level': 'DEBUG',
+            'handlers': ['file_ndjson'],
+            'propagate': True,
         },
     },
 })
-logger = logging.getLogger(__name__)
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
