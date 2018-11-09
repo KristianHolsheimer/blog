@@ -49,7 +49,7 @@ class Tag(models.Model):
         validators=[tag_validator])
 
     def posts(self):
-        return Post.objects.filter(tags__name__contains=self.name)
+        return Post.objects.filter(tags__name__contains=self.name, is_live=True)
 
     def __str__(self):
         return self.name

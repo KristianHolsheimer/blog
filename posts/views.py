@@ -15,7 +15,7 @@ def log_request(view):
 
 @log_request
 def index(request):
-    posts = Post.objects.order_by('-pub_date')[:5]
+    posts = Post.objects.filter(is_live=True).order_by('-pub_date')[:5]
     tags = Tag.objects.order_by('name')
     context = {'posts': posts, 'tags': tags}
     return render(request, 'posts/index.html', context)
@@ -24,7 +24,7 @@ def index(request):
 @log_request
 def post(request, post_name):
     logger.debug(dict(request))
-    post_obj = get_object_or_404(Post, name=post_name)
+    post_obj = get_object_or_404(Post, name=post_name, is_live=True)
     return render(request, 'posts/post_site.html', {'post': post_obj})
 
 

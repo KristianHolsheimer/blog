@@ -1,11 +1,42 @@
-<h1>Posts with tag &quot;{{ tag.name }}&quot;</h1>
+{# ------------------------------------------------------------------------- #}
+{# This is the main blog post page:                                          #}
+{# - adds post-specific meta data                                            #}
+{# - adds a "edit this post" link                                            #}
+{# - loads blog post content                                                 #}
+{#                                                                           #}
+{# Required context:                                                         #}
+{# - post: Post object                                                       #}
+{# - user: (provided by default)                                             #}
+{# ------------------------------------------------------------------------- #}
 
-{% if tag.posts %}
-    <ul>
-    {% for post in tag.posts %}
-        <li><a href="{% url 'post' post.name %}">{{ post.title }}</a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No posts are available.</p>
-{% endif %}
+
+{% extends "posts/base_site.html" %}
+
+
+{% block head %}
+
+  <meta name="description" content="Posts with tag: &quot;{{ tag.name }}&quot;">
+  <meta name="keywords" content="{{ tag.name }}">
+
+{% endblock %}
+
+
+{% block center_pane %}
+
+  <div class="tag">
+    <h1>Posts with tag: &quot;{{ tag.name }}&quot;</h1>
+
+    {% if tag.posts %}
+        <ul>
+        {% for post in tag.posts %}
+            <li><a href="{% url 'post' post.name %}">{{ post.title }}</a></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No posts are available.</p>
+    {% endif %}
+  </div>
+
+{% endblock %}
+
+

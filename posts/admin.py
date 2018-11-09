@@ -11,6 +11,22 @@ admin.site.site_header = "Blog administration"
 admin.site.register(Tag)
 
 
+def put_live(modeladmin, request, queryset):
+    for post in queryset:
+        post.is_live = True
+        post.save()
+
+
+def take_down(modeladmin, request, queryset):
+    for post in queryset:
+        post.is_live = False
+        post.save()
+
+
+put_live.short_description = 'Put post live'
+take_down.short_description = 'Take down post'
+
+
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
     form = PostForm
@@ -19,6 +35,7 @@ class PostAdmin(admin.ModelAdmin):
         (None, {'fields': ('is_live', 'name', 'title', 'tags', 'images', 'markdown')}),
         ('Preview', {'fields': ('preview',)}),
     )
+    actions = [put_live, take_down]
 
     def preview(self, post):
         return mark_safe(
