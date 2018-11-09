@@ -76,6 +76,7 @@ class Post(models.Model):
     images = models.ManyToManyField(Image, blank=True)
     markdown = models.TextField()
     pub_date = models.DateField('date published', auto_now_add=True)
+    is_live = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
