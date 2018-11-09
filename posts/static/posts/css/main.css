@@ -1,4 +1,3 @@
-
 body {
   font-family: serif;
 
@@ -14,6 +13,10 @@ body {
   /* font */
   font-size: 100%;
 
+}
+
+h1, h2, h3 {
+  font-family: 'Butler', serif;
 }
 
 .center_pane {
