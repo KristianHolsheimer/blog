@@ -28,7 +28,7 @@ class PostForm(ModelForm):
     def clean(self):
         """ Checks whether set(linked files) == set(referenced files) """
         linked_images = {img.filename for img in self.cleaned_data['images']}
-        referenced_images = {m['filename'] for m in RE_MARKDOWN_IMG.finditer(self.cleaned_data['markdown'])}
+        referenced_images = {m['filename'] for m in RE_MARKDOWN_IMG.finditer(self.cleaned_data.get('markdown', ''))}
         missing_files = referenced_images - linked_images
         superfluous_files = linked_images - referenced_images
         if missing_files:
