@@ -38,7 +38,17 @@
 
   <div class="post">
     <h1>{{ post.title }}</h1>
-    {% include "posts/tags_list.html" %}
+
+    <div class="tags_list">
+      {% if post.id and post.tags.count %}
+        Tags:
+        {% for tag in post.tags.all %}
+          &nbsp;
+          <a href="{% url 'tag' tag.name %}">{{ tag.name }}</a>
+        {% endfor %}
+      {% endif %}
+    </div>
+
     {{ post.html }}
   </div>
 
