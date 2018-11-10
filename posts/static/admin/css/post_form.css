@@ -1,3 +1,8 @@
+/******************************************************************************
+This is a collection of some quick-n-dirty hacks to fix the admin page style
+for the preview pane.
+******************************************************************************/
+
 label {
   color: #333;
 }
@@ -95,16 +100,5 @@ img.post_image {
 }
 
 code {
-  display: inline-block;
-  padding-top: 12px;
-  padding-bottom: 12px;
-  padding-left: 12px;
-  padding-right: auto;
-  margin-top: 0;
-  margin-bottom: 0;
-  margin-left: 0;
-  margin-right: 0;
-  color: #000;
-  background-color: #eee;
-  width: 100% !important;
+  color: #111;
 }

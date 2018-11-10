@@ -31,7 +31,7 @@
   <h1>Posts</h1>
 
   {% if posts %}
-    <ul>
+    <ul id="posts_index">
     {% for post in posts %}
       <li><a href="{% url 'post' post.name %}">{{ post.title }}</a></li>
     {% endfor %}
@@ -47,7 +47,7 @@
   <h1>Tags</h1>
 
   {% if tags %}
-    <ul>
+    <ul id="tags_index">
     {% for tag in tags %}
       <li><a href="{% url 'tag' tag.name %}">{{ tag.name }}</a></li>
     {% endfor %}

@@ -19,6 +19,7 @@
   <meta name="keywords" content="{% for tag in post.tags.all %}{{ tag }},{% endfor %}">
 
   {% include 'posts/mathjax.html' %}
+  {% include 'posts/highlight.html' %}
 
 {% endblock %}
 

@@ -21,7 +21,8 @@ class PostForm(ModelForm):
         css = {
             'all': [
                 'fonts/Butler_Webfont/stylesheet.css',
-                'posts/css/post_form.css',
+                'admin/css/post_form.css',
+                'posts/css/code.css',
             ],
         }
 
