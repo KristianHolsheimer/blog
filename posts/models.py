@@ -85,3 +85,10 @@ class Post(models.Model):
         md = MarkdownRenderer(self)
         html = md.render(self.markdown)
         return mark_safe(html)
+
+    @classmethod
+    def all_live_tags(cls):
+        tags = set()
+        for post in cls.objects.filter(is_live=True):
+            tags.update(post.tags.all())
+        return sorted(tags, key=(lambda tag: tag.name))

@@ -16,7 +16,7 @@ def log_request(view):
 @log_request
 def index(request):
     posts = Post.objects.filter(is_live=True).order_by('-pub_date')[:5]
-    tags = Tag.objects.order_by('name')
+    tags = Post.all_live_tags()
     context = {'posts': posts, 'tags': tags}
     return render(request, 'posts/index.html', context)
 
