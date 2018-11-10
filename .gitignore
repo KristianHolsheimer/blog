@@ -1,5 +1,5 @@
 secret_key.txt*
-db.sqlite3
+db.sqlite3*
 log/*
 media/*
 sandbox/*
