@@ -3,6 +3,8 @@ import mimetypes
 import os
 import re
 
+from bs4 import BeautifulSoup
+
 from django.core.exceptions import ValidationError
 from django.template.defaultfilters import filesizeformat
 from django.utils.deconstruct import deconstructible
@@ -58,6 +60,12 @@ class MarkdownRenderer:
         markdown = self.escape(markdown)
         html = misaka.html(markdown, extensions=['math', 'math-explicit', 'fenced-code', 'footnotes'], render_flags=[])
         html = self.escape(html, reverse=True)
+
+        # open all links in a new window
+        soup = BeautifulSoup(html, 'lxml')
+        soup.find('a')['target'] = '_blank'
+        html = str(soup)
+
         return html
 
 
