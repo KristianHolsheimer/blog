@@ -8,7 +8,6 @@ from .models import Post, Image
 
 
 class PostForm(ModelForm):
-    # TODO:
     class Meta:
         model = Post
         exclude = ['id']
