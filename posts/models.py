@@ -23,7 +23,7 @@ post_validator = RegexValidator(
 image_validator = FileValidator(
     restricted_basename=False,
     allowed_extensions=('jpg', 'png', 'svg'),
-    allowed_mimetypes=('image/jpg', 'image/png', 'image/svg', 'image/svg+xml'),
+    allowed_mimetypes=('image/jpeg', 'image/png', 'image/svg', 'image/svg+xml'),
 )
 image_filename_validator = RegexValidator(
     regex=RE_FILENAME_IMG,
