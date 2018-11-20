@@ -63,7 +63,8 @@ class MarkdownRenderer:
 
         # open all links in a new window
         soup = BeautifulSoup(html, 'lxml')
-        soup.find('a')['target'] = '_blank'
+        if soup.find('a') is not None:
+            soup.find('a')['target'] = '_blank'
         html = str(soup)
 
         return html
