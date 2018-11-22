@@ -32,7 +32,7 @@ class PostAdmin(admin.ModelAdmin):
     form = PostForm
     readonly_fields = ('preview',)
     fieldsets = (
-        (None, {'fields': ('is_live', 'name', 'title', 'tags', 'images', 'markdown')}),
+        (None, {'fields': ('is_live', 'name', 'title', 'category', 'tags', 'images', 'markdown')}),
         ('Preview', {'fields': ('preview',)}),
     )
     actions = [put_live, take_down]

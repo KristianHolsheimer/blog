@@ -68,6 +68,12 @@ class Image(models.Model):
 
 
 class Post(models.Model):
+    CATEGORY_DS = 0
+    CATEGORY_ENG = 1
+    CATEGORY_CHOICES = (
+        (CATEGORY_DS, 'Data Science'),
+        (CATEGORY_ENG, 'Engineering'),
+    )
     name = models.SlugField(
         max_length=30, unique=True, blank=False, null=False,
         validators=[post_validator])
@@ -77,6 +83,7 @@ class Post(models.Model):
     markdown = models.TextField()
     pub_date = models.DateField('date published', auto_now_add=True)
     is_live = models.BooleanField(default=False)
+    category = models.PositiveSmallIntegerField(choices=CATEGORY_CHOICES)
 
     def __str__(self):
         return self.title

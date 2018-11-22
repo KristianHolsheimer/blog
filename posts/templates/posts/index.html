@@ -28,11 +28,23 @@
   </div>
 
 
-  <h1>Posts</h1>
+  <h1>Data Science Posts</h1>
 
-  {% if posts %}
+  {% if posts_ds %}
     <ul id="posts_index">
-    {% for post in posts %}
+    {% for post in posts_ds %}
+      <li><a href="{% url 'post' post.name %}">{{ post.title }}</a></li>
+    {% endfor %}
+    </ul>
+  {% else %}
+    <p>No posts are available.</p>
+  {% endif %}
+
+  <h1>Engineering Posts</h1>
+
+  {% if posts_eng %}
+    <ul id="posts_index">
+    {% for post in posts_eng %}
       <li><a href="{% url 'post' post.name %}">{{ post.title }}</a></li>
     {% endfor %}
     </ul>
