@@ -79,8 +79,8 @@ logging.config.dictConfig({
 SECRET_KEY = get_or_create_secret_key(BASE_DIR)
 
 ALLOWED_HOSTS = [
-    'unbiasednoise.westeurope.cloudapp.azure.com',
-    'unbiasednoise.com',
+    'biasednoise.westeurope.cloudapp.azure.com',
+    'biasednoise.com',
 ]
 if DEBUG:
     ALLOWED_HOSTS += ['127.0.0.1', 'localhost']

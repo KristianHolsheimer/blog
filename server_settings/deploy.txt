@@ -39,12 +39,12 @@ sudo service nginx restart
 # From local/backup machine:
 scp /path/to/blog/db.sqlite3 blogserver:git_tree/blog/
 scp /path/to/blog/media blogserver:git_tree/blog/
-scp ~/.local/etc/ssl/certs/unbiasednoise.crt blogserver:/tmp
-scp ~/.local/etc/ssl/private/unbiasednoise.rsa blogserver:/tmp
+scp ~/.local/etc/ssl/certs/biasednoise.crt blogserver:/tmp
+scp ~/.local/etc/ssl/private/biasednoise.rsa blogserver:/tmp
 
 # install ssl certificate and private key
-sudo mv /tmp/unbiasednoise.com.crt /etc/ssl/certs/unbiasednoise.com.crt
-sudo mv /tmp/unbiasednoise.com.rsa /etc/ssl/private/unbiasednoise.com.rsa
+sudo mv /tmp/biasednoise.crt /etc/ssl/certs/biasednoise.crt
+sudo mv /tmp/biasednoise.rsa /etc/ssl/private/biasednoise.rsa
 
 # to quickly test uwsgi:
 workon blog && ./manage.py collectstatic && deactivate

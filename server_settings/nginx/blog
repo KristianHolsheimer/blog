@@ -1,14 +1,14 @@
 server {
-    server_name www.unbiasednoise.com unbiasednoise.com;
-    return 301 https://unbiasednoise.com$request_uri;
+    server_name www.biasednoise.com biasednoise.com;
+    return 301 https://biasednoise.com$request_uri;
 }
 
 server {
     listen 443 ssl;
-    ssl_certificate /etc/ssl/certs/unbiasednoise.crt;
-    ssl_certificate_key /etc/ssl/private/unbiasednoise.rsa;
-    server_name www.unbiasednoise.com;
-    return 301 https://unbiasednoise.com$request_uri;
+    ssl_certificate /etc/ssl/certs/biasednoise.crt;
+    ssl_certificate_key /etc/ssl/private/biasednoise.rsa;
+    server_name www.biasednoise.com;
+    return 301 https://biasednoise.com$request_uri;
 }
 
 server {
@@ -16,11 +16,11 @@ server {
 
     # the port your site will be served on
     listen 443 ssl;
-    ssl_certificate /etc/ssl/certs/unbiasednoise.crt;
-    ssl_certificate_key /etc/ssl/private/unbiasednoise.rsa;
+    ssl_certificate /etc/ssl/certs/biasednoise.crt;
+    ssl_certificate_key /etc/ssl/private/biasednoise.rsa;
 
     # the domain name it will serve for
-    server_name unbiasednoise.com;
+    server_name biasednoise.com;
 
     # max upload size
     client_max_body_size 75M;
