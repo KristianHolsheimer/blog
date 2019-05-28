@@ -24,8 +24,8 @@ sudo chmod 777 $DJANGO_LOG_DIR
 
 # setup uwsgi
 sudo mkdir -p /etc/uwsgi/sites
-python3 $GIT_TREE/blog/uwsgi/create_uwsgi_config_file.py | sudo tee /etc/uwsgi/sites/blog.ini
-sudo cp $GIT_TREE/blog/uwsgi/uwsgi.service /etc/systemd/system/uwsgi.service
+python3 $GIT_TREE/blog/server_settings/uwsgi/create_uwsgi_config_file.py | sudo tee /etc/uwsgi/sites/blog.ini
+sudo cp $GIT_TREE/blog/server_settings/uwsgi/uwsgi.service /etc/systemd/system/uwsgi.service
 sudo systemctl enable uwsgi.service
 sudo service uwsgi start
 

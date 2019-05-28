@@ -5,7 +5,7 @@ import sys
 from argparse import ArgumentParser
 from configparser import ConfigParser
 
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 from blog.utils import env_var  # noqa
 from blog.settings import BASE_DIR, LOG_DIR  # noqa
 
