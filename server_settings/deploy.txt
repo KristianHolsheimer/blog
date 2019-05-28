@@ -29,22 +29,21 @@ sudo cp $GIT_TREE/blog/server_settings/uwsgi/uwsgi.service /etc/systemd/system/u
 sudo systemctl enable uwsgi.service
 sudo service uwsgi start
 
+# install ssl certificate and private key
+(local) scp /path/to/biasednoise.crt kris@biasednoise.westeurope.cloudapp.azure.com:/tmp/biasednoise.crt
+(local) scp /path/to/biasednoise.rsa kris@biasednoise.westeurope.cloudapp.azure.com:/tmp/biasednoise.rsa
+sudo mv /tmp/biasednoise.crt /etc/ssl/certs/biasednoise.crt
+sudo mv /tmp/biasednoise.rsa /etc/ssl/private/biasednoise.rsa
+
 # setup nginx
-sudo cp $GIT_TREE/blog/nginx/blog /etc/nginx/sites-available/blog
-sudo cp $GIT_TREE/blog/nginx/uwsgi_params /etc/nginx/sites-available/uwsgi_params
+sudo cp $GIT_TREE/blog/server_settings/nginx/blog /etc/nginx/sites-available/blog
 sudo ln -s /etc/nginx/sites-available/blog /etc/nginx/sites-enabled/blog
 sudo rm -f /etc/nginx/sites-enabled/default
 sudo service nginx restart
 
 # From local/backup machine:
-scp /path/to/blog/db.sqlite3 blogserver:git_tree/blog/
-scp /path/to/blog/media blogserver:git_tree/blog/
-scp ~/.local/etc/ssl/certs/biasednoise.crt blogserver:/tmp
-scp ~/.local/etc/ssl/private/biasednoise.rsa blogserver:/tmp
-
-# install ssl certificate and private key
-sudo mv /tmp/biasednoise.crt /etc/ssl/certs/biasednoise.crt
-sudo mv /tmp/biasednoise.rsa /etc/ssl/private/biasednoise.rsa
+(local) scp /path/to/blog/db.sqlite3 kris@biasednoise.westeurope.cloudapp.azure.com:git_tree/blog/
+(local) scp -r /path/to/blog/media kris@biasednoise.westeurope.cloudapp.azure.com:git_tree/blog/
 
 # to quickly test uwsgi:
 workon blog && ./manage.py collectstatic && deactivate
