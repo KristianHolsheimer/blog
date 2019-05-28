@@ -32,3 +32,12 @@ pre code span.hljs-title {
 pre code span.hljs-string {
   color: #BA2121;
 }
+
+pre code span.hljs-number {
+  color: #080;
+}
+
+pre code span.hljs-comment {
+  font-style: italic;
+  color: #408080;
+}
