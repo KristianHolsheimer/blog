@@ -22,12 +22,12 @@ post_validator = RegexValidator(
 )
 image_validator = FileValidator(
     restricted_basename=False,
-    allowed_extensions=('jpg', 'png', 'svg'),
-    allowed_mimetypes=('image/jpeg', 'image/png', 'image/svg', 'image/svg+xml'),
+    allowed_extensions=('jpg', 'png', 'svg', 'gif'),
+    allowed_mimetypes=('image/jpeg', 'image/png', 'image/svg', 'image/svg+xml', 'gif'),
 )
 image_filename_validator = RegexValidator(
     regex=RE_FILENAME_IMG,
-    message="Please use a filename using lowercase letters, digits and underscores. Valid extensions are: 'jpg', 'png' or 'svg'",
+    message="Please use a filename using lowercase letters, digits and underscores. Valid extensions are: 'jpg', 'png', 'svg' or 'gif'",
     code='invalid_name',
     inverse_match=True,
 )
