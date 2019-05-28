@@ -20,7 +20,7 @@ textarea#id_markdown {
 
 #post_preview.post {
   all: initial;
-  font-family: 'LatoWeb', sans-serif;
+  font-family: 'LatoWeb', sans-serif !important;
   display: block;
   width: 640px;
   max-width: 100%;
