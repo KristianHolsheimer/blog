@@ -13,7 +13,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 
 
-RE_FILENAME_IMG = re.compile(r'[a-z0-9\_]+\.(?:jpg|png|svg)')
+RE_FILENAME_IMG = re.compile(r'[a-z0-9\_]+\.(?:jpg|png|svg|gif)')
 RE_MARKDOWN_IMG = re.compile(r'(?P<full>\!\[(?P<alt>.*)\]\((?P<filename>' + RE_FILENAME_IMG.pattern + r')\))')
 
 
