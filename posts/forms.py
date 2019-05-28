@@ -19,6 +19,7 @@ class PostForm(ModelForm):
     class Media:
         css = {
             'all': [
+                'fonts/Lato/latofonts.css',
                 'fonts/Butler_Webfont/stylesheet.css',
                 'admin/css/post_form.css',
                 'posts/css/code.css',

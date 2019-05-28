@@ -1,5 +1,5 @@
 body {
-  font-family: serif;
+  font-family: 'LatoWeb', sans-serif;
 
   /* shape */
   margin-top: 0;
@@ -15,10 +15,6 @@ body {
 
 }
 
-h1, h2, h3 {
-  font-family: 'Butler', serif;
-}
-
 a {
   text-decoration: inherit; /* no underline */
 }
@@ -32,10 +28,6 @@ img {
   max-width: 95%;
   margin-left: auto;
   margin-right: auto;
-}
-
-.post {
-  font-family: serif;
 }
 
 .about p {
