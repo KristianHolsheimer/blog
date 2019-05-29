@@ -23,7 +23,7 @@ from .settings import DEBUG, MEDIA_ROOT, STATIC_URL
 urlpatterns = [
     path('', include('posts.urls')),
     path('admin/', admin.site.urls),
-    path('favicon.ico', RedirectView.as_view(url=os.path.join(STATIC_URL, 'img/K_black.svg'))),
+    path('favicon.ico', RedirectView.as_view(url=os.path.join(STATIC_URL, 'img/K_black.ico'))),
 ]
 
 # in production, we'll serve '/media/' directly from nginx
