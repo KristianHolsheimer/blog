@@ -27,7 +27,7 @@ server {
 
     # serve static files directly
     location /favicon.ico {
-        alias /home/kris/git_tree/blog/static/img/K_black.ico
+        alias /home/kris/git_tree/blog/static/img/K_black.ico;
         access_log off;
         log_not_found off;
     }
