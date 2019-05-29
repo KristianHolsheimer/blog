@@ -14,7 +14,7 @@ from django.conf import settings
 
 
 RE_FILENAME_IMG = re.compile(r'[a-z0-9\_]+\.(?:jpg|png|svg|gif)')
-RE_MARKDOWN_IMG = re.compile(r'(?P<full>\!\[(?P<alt>.*)\]\((?P<filename>' + RE_FILENAME_IMG.pattern + r')\))')
+RE_MARKDOWN_IMG = re.compile(r'(?P<full>\!\[(?P<alt>.*)\]\((?P<filename>' + RE_FILENAME_IMG.pattern + r')(?:\s+\=.*)\))')
 
 
 class MarkdownRenderer:
