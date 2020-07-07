@@ -30,10 +30,13 @@ sudo systemctl enable uwsgi.service
 sudo service uwsgi start
 
 # install ssl certificate and private key
-(local) scp /path/to/biasednoise.crt kris@biasednoise.westeurope.cloudapp.azure.com:/tmp/biasednoise.crt
-(local) scp /path/to/biasednoise.rsa kris@biasednoise.westeurope.cloudapp.azure.com:/tmp/biasednoise.rsa
+(local) openssl pkcs12 -in /path/to/biasednoise.pfx -clcerts -nokeys -out ./biasednoise.crt
+(local) openssl pkcs12 -in /path/to/biasednoise.pfx -nocerts -nodes -out ./biasednoise.rsa
+(local) scp ./biasednoise.crt kris@biasednoise.westeurope.cloudapp.azure.com:/tmp/biasednoise.crt
+(local) scp ./biasednoise.rsa kris@biasednoise.westeurope.cloudapp.azure.com:/tmp/biasednoise.rsa
 sudo mv /tmp/biasednoise.crt /etc/ssl/certs/biasednoise.crt
 sudo mv /tmp/biasednoise.rsa /etc/ssl/private/biasednoise.rsa
+(local) rm ./biasednoise.crt ./biasednoise.rsa
 
 # setup nginx
 sudo cp $GIT_TREE/blog/server_settings/nginx/blog /etc/nginx/sites-available/blog
